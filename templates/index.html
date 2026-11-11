@@ -13,8 +13,61 @@
         <header class="page-header">
             <p class="eyebrow">Flask starter</p>
             <h1>Stack-Based Calculator</h1>
-            <p class="intro">Placeholder.</p>
+            <p class="intro">Enter an expression or use the keypad.</p>
         </header>
+
+        <form id="calculator-form" class="calculator" action="/calculate" method="post">
+            <section class="calculator-display" aria-label="Calculator display">
+                <label for="expression">Expression</label>
+                <input
+                    id="expression"
+                    name="expression"
+                    type="text"
+                    placeholder="Enter Expression"
+                    autocomplete="off"
+                >
+                <output class="calculator-result" aria-live="polite">Result</output>
+            </section>
+
+            <section class="calculator-controls" aria-label="Calculator controls">
+                <button type="button" name="key" value="sign">+/-</button>
+                <button type="button" name="key" value="backspace" aria-label="Backspace">⌫</button>
+                <button type="button" name="key" value="clear">AC</button>
+                <button type="submit" name="key" value="equals">=</button>
+            </section>
+
+            <section class="calculator-keypad" aria-label="Calculator keypad">
+                <div class="digit-keys" aria-label="Numbers">
+                    <button type="button" name="key" value="1">1</button>
+                    <button type="button" name="key" value="2">2</button>
+                    <button type="button" name="key" value="3">3</button>
+                    <button type="button" name="key" value="4">4</button>
+                    <button type="button" name="key" value="5">5</button>
+                    <button type="button" name="key" value="6">6</button>
+                    <button type="button" name="key" value="7">7</button>
+                    <button type="button" name="key" value="8">8</button>
+                    <button type="button" name="key" value="9">9</button>
+                    <button type="button" name="key" value="0">0</button>
+                    <button type="button" name="key" value=".">.</button>
+                    <button type="button" name="key" value="theme" aria-label="Toggle dark mode">🌙</button>
+                </div>
+
+                <div class="operator-keys" aria-label="Operators">
+                    <button type="button" name="key" value="+">+</button>
+                    <button type="button" name="key" value="-">-</button>
+                    <button type="button" name="key" value="*">*</button>
+                    <button type="button" name="key" value="/">/</button>
+                </div>
+            </section>
+        </form>
+
+        <details class="debug-controls">
+            <summary>Debug options</summary>
+            <label>
+                <input type="checkbox" name="debug" form="calculator-form">
+                Enable debug logging
+            </label>
+        </details>
     </main>
 </body>
 

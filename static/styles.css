@@ -53,7 +53,7 @@ body {
 }
 
 .page {
-    width: min(100% - 2rem, 48rem);
+    width: min(100% - 2rem, 52rem);
     margin: 0 auto;
     padding: 5rem 0;
 }
