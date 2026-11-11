@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Stack-Based Calculator</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='calculator.js') }}" defer></script>
+    <script src="{{ url_for('static', filename='theme.js') }}" defer></script>
 </head>
 
 <body>
@@ -18,14 +20,8 @@
 
         <form id="calculator-form" class="calculator" action="/calculate" method="post">
             <section class="calculator-display" aria-label="Calculator display">
-                <label for="expression">Expression</label>
-                <input
-                    id="expression"
-                    name="expression"
-                    type="text"
-                    placeholder="Enter Expression"
-                    autocomplete="off"
-                >
+                <label for="expression">Calculating:</label>
+                <input id="expression" name="expression" type="text" placeholder="Enter Expression" autocomplete="off">
                 <output class="calculator-result" aria-live="polite">Result</output>
             </section>
 
@@ -38,25 +34,26 @@
 
             <section class="calculator-keypad" aria-label="Calculator keypad">
                 <div class="digit-keys" aria-label="Numbers">
-                    <button type="button" name="key" value="1">1</button>
-                    <button type="button" name="key" value="2">2</button>
-                    <button type="button" name="key" value="3">3</button>
-                    <button type="button" name="key" value="4">4</button>
-                    <button type="button" name="key" value="5">5</button>
-                    <button type="button" name="key" value="6">6</button>
-                    <button type="button" name="key" value="7">7</button>
-                    <button type="button" name="key" value="8">8</button>
-                    <button type="button" name="key" value="9">9</button>
-                    <button type="button" name="key" value="0">0</button>
-                    <button type="button" name="key" value=".">.</button>
-                    <button type="button" name="key" value="theme" aria-label="Toggle dark mode">🌙</button>
+                    <button type="button" name="digit1" value="1" onclick="expressionInput.value += '1'">1</button>
+                    <button type="button" name="digit2" value="2" onclick="expressionInput.value += '2'">2</button>
+                    <button type="button" name="digit3" value="3" onclick="expressionInput.value += '3'">3</button>
+                    <button type="button" name="digit4" value="4" onclick="expressionInput.value += '4'">4</button>
+                    <button type="button" name="digit5" value="5" onclick="expressionInput.value += '5'">5</button>
+                    <button type="button" name="digit6" value="6" onclick="expressionInput.value += '6'">6</button>
+                    <button type="button" name="digit7" value="7" onclick="expressionInput.value += '7'">7</button>
+                    <button type="button" name="digit8" value="8" onclick="expressionInput.value += '8'">8</button>
+                    <button type="button" name="digit9" value="9" onclick="expressionInput.value += '9'">9</button>
+                    <button type="button" name="digit0" value="0" onclick="expressionInput.value += '0'">0</button>
+                    <button type="button" name="decimal" value="." onclick="expressionInput.value += '.'">.</button>
+                    <button type="button" name="darkMode" value="theme" aria-label="Toggle dark mode"
+                        onclick="toggleDarkMode()">🌙</button>
                 </div>
 
                 <div class="operator-keys" aria-label="Operators">
-                    <button type="button" name="key" value="+">+</button>
-                    <button type="button" name="key" value="-">-</button>
-                    <button type="button" name="key" value="*">*</button>
-                    <button type="button" name="key" value="/">/</button>
+                    <button type="button" name="key" value="+" onclick="expressionInput.value += '+'">+</button>
+                    <button type="button" name="key" value="-" onclick="expressionInput.value += '-'">-</button>
+                    <button type="button" name="key" value="*" onclick="expressionInput.value += '*'">*</button>
+                    <button type="button" name="key" value="/" onclick="expressionInput.value += '/'">/</button>
                 </div>
             </section>
         </form>
