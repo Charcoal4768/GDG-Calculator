@@ -35,4 +35,4 @@ Allow TCP port `5000` through the firewall if needed. This is Flask's developmen
 
 ## API
 
-`POST /calculate` accepts a JSON body containing an `expression` string and returns a JSON result. It evaluates basic decimal arithmetic with `+`, `-`, `*`, and `/` using operator precedence.
+`POST /calculate` accepts a JSON body containing an `expression` string and returns a JSON result. It evaluates decimal arithmetic with `+`, `-`, `*`, and `/`, operator precedence, and nested parentheses.

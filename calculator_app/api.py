@@ -5,8 +5,8 @@ from flask import Blueprint, jsonify, request
 
 api = Blueprint("api", __name__)
 
-_ALLOWED_CHARACTERS = re.compile(r"[^0-9.+*/-]")
-_NUMBER = re.compile(r"[+-]?(?:\d+(?:\.\d*)?|\.\d+)")
+_ALLOWED_CHARACTERS = re.compile(r"[^0-9.+*/()-]")
+_NUMBER = re.compile(r"(?:\d+(?:\.\d*)?|\.\d+)")
 _OPERATORS = frozenset("+-*/")
 
 
@@ -15,18 +15,29 @@ def _clean_expression(expression):
 
 
 def _precedence(operator):
+    if operator.startswith("u"):
+        return 3
     if operator in "+-":
         return 1
-    return 2
+    if operator in "*/":
+        return 2
+    return 0
 
 
 def _apply_operator(numbers, operators):
+    operator = operators.pop()
+    if operator.startswith("u"):
+        if not numbers:
+            raise ValueError("Invalid expression: not enough operands.")
+        number = numbers.pop()
+        numbers.append(-number if operator == "u-" else number)
+        return
+
     if len(numbers) < 2:
         raise ValueError("Invalid expression: not enough operands.")
 
     right = numbers.pop()
     left = numbers.pop()
-    operator = operators.pop()
 
     if operator == "+":
         result = left + right
@@ -56,19 +67,46 @@ def _evaluate_expression(expression):
 
     while position < len(cleaned):
         if expecting_number:
+            character = cleaned[position]
+            if character in "+-":
+                operators.append("u" + character)
+                position += 1
+                continue
+            if character == "(":
+                operators.append(character)
+                position += 1
+                continue
+
             match = _NUMBER.match(cleaned, position)
             if match is None:
                 raise ValueError("Invalid expression: expected a number.")
             numbers.append(float(match.group()))
             position = match.end()
+            while operators and operators[-1].startswith("u"):
+                _apply_operator(numbers, operators)
             expecting_number = False
             continue
 
         operator = cleaned[position]
+        if operator == ")":
+            while operators and operators[-1] != "(":
+                _apply_operator(numbers, operators)
+            if not operators:
+                raise ValueError("Invalid expression: unmatched closing parenthesis.")
+            operators.pop()
+            position += 1
+            while operators and operators[-1].startswith("u"):
+                _apply_operator(numbers, operators)
+            continue
+
         if operator not in _OPERATORS:
             raise ValueError("Invalid expression.")
 
-        while operators and _precedence(operators[-1]) >= _precedence(operator):
+        while (
+            operators
+            and operators[-1] != "("
+            and _precedence(operators[-1]) >= _precedence(operator)
+        ):
             _apply_operator(numbers, operators)
 
         operators.append(operator)
@@ -79,6 +117,8 @@ def _evaluate_expression(expression):
         raise ValueError("Invalid expression: expected a number after the operator.")
 
     while operators:
+        if operators[-1] == "(":
+            raise ValueError("Invalid expression: unmatched opening parenthesis.")
         _apply_operator(numbers, operators)
 
     if len(numbers) != 1:

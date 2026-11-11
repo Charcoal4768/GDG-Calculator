@@ -9,7 +9,7 @@ function clearString() {
 }
 
 function cleanExpression(expression) {
-    return expression.replace(/[^0-9.+*/-]/g, '');
+    return expression.replace(/[^0-9.+*/()-]/g, '');
 }
 
 clearButton.addEventListener('click', clearString);
