@@ -27,7 +27,7 @@
 
             <section class="calculator-controls" aria-label="Calculator controls">
                 <button type="button" name="key" value="sign"
-                    onclick="expressionInput.value = expressionInput.value ? -expressionInput.value : ''">+/-</button>
+                    onclick="expressionInput.value = expressionInput.value ? '-' + expressionInput.value : expressionInput.value">+/-</button>
                 <button type="button" name="key" value="backspace" aria-label="Backspace"
                     onclick="expressionInput.value = expressionInput.value.slice(0, -1)">⌫</button>
                 <button type="button" name="key" value="clear" id="clear">AC</button>
