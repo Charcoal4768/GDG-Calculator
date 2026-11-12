@@ -217,6 +217,80 @@ h1 {
     color: var(--text);
 }
 
+.history {
+    margin-top: var(--space-l);
+    padding: var(--card-padding);
+    border: var(--border-width) solid color-mix(in srgb, var(--tertiary) 18%, transparent);
+    border-radius: var(--radius-large);
+    background: var(--input);
+}
+
+.history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-s);
+}
+
+.history-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.history-header button,
+.history-entry {
+    border: 0;
+    border-radius: var(--radius-small);
+    background: transparent;
+    color: var(--primary);
+    cursor: pointer;
+    font: inherit;
+}
+
+.history-header button {
+    padding: var(--space-s);
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.history-status {
+    min-height: 1.25em;
+    margin: var(--space-s) 0;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.history-list {
+    display: grid;
+    gap: var(--space-xs);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.history-empty {
+    padding: var(--space-s);
+    color: var(--text-secondary);
+}
+
+.history-entry {
+    width: 100%;
+    padding: var(--space-s);
+    overflow-wrap: anywhere;
+    text-align: left;
+}
+
+.history-header button:hover,
+.history-entry:hover {
+    background: color-mix(in srgb, var(--primary) 12%, transparent);
+}
+
+.history-header button:focus-visible,
+.history-entry:focus-visible {
+    outline: 3px solid var(--secondary);
+    outline-offset: 2px;
+}
+
 .debug-controls {
     margin-top: var(--space-m);
     color: var(--text-secondary);

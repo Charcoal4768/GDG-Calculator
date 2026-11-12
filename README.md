@@ -33,6 +33,10 @@ ip -4 addr
 
 Allow TCP port `5000` through the firewall if needed. This is Flask's development server; use it only on a trusted local network, not as a public production server.
 
+## Local history
+
+Successful calculations are saved in the current browser's local storage, so history remains available on that device between visits. Select a history entry to restore its expression and result, or choose **Clear history** to remove saved calculations. The list keeps the 20 most recent calculations.
+
 ## API
 
 `POST /calculate` accepts a JSON body containing an `expression` string and returns a JSON result. It evaluates decimal arithmetic with `+`, `-`, `*`, and `/`, operator precedence, and nested parentheses.
